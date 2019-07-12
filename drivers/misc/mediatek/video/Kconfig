@@ -4,8 +4,8 @@ config MTK_VIDEO
   help
     CONFIG_MTK_VIDEO
     
-config KLAPSE_LIVEDISPLAY
-  bool CONFIG_KLAPSE_LIVEDISPLAY
+config KLAPSE
+  bool CONFIG_KLAPSE
   default n
   help
     A simple rgb dynamic lapsing module similar to livedisplay    

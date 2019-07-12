@@ -68,6 +68,8 @@
 #include "ddp_mmp.h"
 #include "mtkfb_fence.h"
 
+#include "../../klapse/klapse.h"
+
 #define DISP_DISABLE_X_CHANNEL_ALPHA
 
 /* TODO: revise this later @xuecheng */
@@ -2064,9 +2066,9 @@ static struct platform_device mtk_disp_mgr_device = {
 #ifdef CONFIG_MTK_VIDEOX_CYNGN_LIVEDISPLAY
 #define MAX_LUT_SCALE 2000
 #define PROGRESSION_SCALE 1000
-static u32 mtk_disp_ld_r = MAX_LUT_SCALE;
-static u32 mtk_disp_ld_g = MAX_LUT_SCALE;
-static u32 mtk_disp_ld_b = MAX_LUT_SCALE;
+u32 mtk_disp_ld_r = MAX_LUT_SCALE;
+u32 mtk_disp_ld_g = MAX_LUT_SCALE;
+u32 mtk_disp_ld_b = MAX_LUT_SCALE;
 
 static ssize_t mtk_disp_ld_get_rgb(struct device *dev,
 		struct device_attribute *attr, char *buf)
@@ -2114,7 +2116,7 @@ static ssize_t mtk_disp_ld_set_rgb(struct device *dev,
 	return count;
 }
 
-void force_livedisplay_set_rgb(int force_r, int force_g, int force_b)
+void update_rgb(int force_r, int force_g, int force_b)
 {
     if ((mtk_disp_ld_r == force_r) && (mtk_disp_ld_g == force_b) && (mtk_disp_ld_b == force_b))
         return;

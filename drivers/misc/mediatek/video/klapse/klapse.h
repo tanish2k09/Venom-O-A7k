@@ -1,22 +1,17 @@
 #ifndef _LINUX_KLAPSE_H
 #define _LINUX_KLAPSE_H
 
-#include <uapi/linux/time.h>
-#include <uapi/linux/rtc.h>
-#include <linux/rtc.h>
+/* Required variables for external access. Change as per use */
+extern void set_rgb_slider(int bl_lvl);
 
-#define MAX_SCALE 2000
-#define SCALE_VAL_MIN 100
-#define DEFAULT_BRIGHTNESS_THRESHOLD 40
+extern void update_rgb(int force_r, int force_g, int force_b);
 
-/* Snapdragon support for KCAL can be made available by creating these two functions linked to KCAL rgb control
- * This needs some careful working around some KCAL methods to avoid conflicts and not make both of them available
- * to be toggled on at the same time from filesystem
- */
+#define K_RED    mtk_disp_ld_r
+#define K_GREEN  mtk_disp_ld_g
+#define K_BLUE   mtk_disp_ld_b
 
-// KLapse variables
-// For MTK these functions are created in mtk_disp_mgr in misc/mediatek/video/mt6752 folder 
-extern void force_livedisplay_set_rgb(int force_r, int force_g, int force_b);
-extern void update_disp_mgr(bool force_l);
+#define K_TYPE   u32
 
-#endif	/* _LINUX_KLAPSE_H */
+extern K_TYPE K_RED, K_GREEN, K_BLUE;
+
+#endif  /* _LINUX_KLAPSE_H */

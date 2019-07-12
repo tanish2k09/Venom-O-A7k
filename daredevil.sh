@@ -42,7 +42,7 @@ export CROSS_COMPILE=aarch64-linux-android-
 JOBS=-j$(nproc)
 
 # Make changes as per the user
-export PATH=/media/tanish2k09/Tanish/Tanish/compiling/aarch64-linux-android-6.x/bin:$PATH
+export PATH=/media/OS/Stuff/Tanish/Oneplus-Backup/Workspace/Kernels/aarch64-linux-android-4.9/bin:$PATH
 export KBUILD_BUILD_USER="tanish2k09"
 export KBUILD_BUILD_HOST="MTKILLER"
 DEVICE="aio_row"

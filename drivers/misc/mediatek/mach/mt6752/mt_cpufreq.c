@@ -279,10 +279,6 @@ static bool init = 0;
 
 #ifdef __KERNEL__
 
-#ifdef CONFIG_KLAPSE_LIVEDISPLAY
-extern void klapse_pulse(void);
-#endif
-
 #ifdef CONFIG_MTK_CPU_OC
 #define CONFIG_MORE_FREQ
 #endif
@@ -3599,10 +3595,6 @@ static unsigned int _calc_new_opp_idx(struct mt_cpu_dvfs *p, int new_opp_idx)
 			cpufreq_dbg("%s(): for ptpod init, idx = %d\n", __func__, new_opp_idx);
         }
     }
-    
-#ifdef CONFIG_KLAPSE_LIVEDISPLAY
-klapse_pulse();
-#endif
     
 #ifdef CONFIG_CPU_DVFS_AEE_RR_REC
     aee_rr_rec_cpu_dvfs_oppidx((aee_rr_curr_cpu_dvfs_oppidx() & 0xF0) | new_opp_idx);

@@ -31,6 +31,7 @@
 #include <linux/aal_api.h>
 #include <linux/aee.h>
 #include <mach/mt_pmic_wrap.h>
+#include "../../video/klapse/klapse.h"
 
 static DEFINE_MUTEX(leds_mutex);
 static DEFINE_MUTEX(leds_pmic_mutex);
@@ -86,11 +87,6 @@ static unsigned int backlight_PWM_div_hal = CLK_DIV1;	/* this para come from cus
 /* Use Old Mode of PWM to suppoort 256 backlight level */
 #define BACKLIGHT_LEVEL_PWM_256_SUPPORT 256
 extern unsigned int Cust_GetBacklightLevelSupport_byPWM(void);
-
-/* Klapse brightness injection */
-extern unsigned int klapse_brightness_threshold;
-extern void klapse_set_rgb_daytime_target(bool daytime);
-extern int force_livedisplay;
 
 /****************************************************************************
  * func:return global variables
@@ -882,8 +878,6 @@ static void power_switch(int level)
 
 #endif
 
-static bool target_set = 0;
-
 int mt_mt65xx_led_set_cust(struct cust_mt65xx_led *cust, int level)
 {
 	struct nled_setting led_tmp_setting = {0,0,0};
@@ -1000,21 +994,8 @@ int mt_mt65xx_led_set_cust(struct cust_mt65xx_led *cust, int level)
 		case MT65XX_LED_MODE_CUST_LCM:
 		if (strcmp(cust->name, "lcd-backlight") == 0) {
 			    bl_brightness_hal = level;			   
-			    //Livedisplay addition for low-brightness yellowing
-					if(force_livedisplay == 2)
-					{
-					    if((level >= klapse_brightness_threshold) && (target_set))
-					    {
-					        klapse_set_rgb_daytime_target(0);
-					        target_set = 0;
-					    }
-					    else if((level < klapse_brightness_threshold) && (!target_set))
-					    {
-					        klapse_set_rgb_daytime_target(1);			       
-					        target_set = 1;
-					    }
-					}				    
-            }
+			    set_rgb_slider(level);		    
+    }
 			LEDS_DEBUG("brightness_set_cust:backlight control by LCM\n");
 			return ((cust_brightness_set)(cust->data))(level, bl_div_hal);
 

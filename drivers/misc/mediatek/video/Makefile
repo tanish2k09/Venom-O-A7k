@@ -18,5 +18,5 @@ obj-$(CONFIG_ARCH_MT6735M) += common/
 obj-$(CONFIG_ARCH_MT6753) += common/
 obj-$(CONFIG_ARCH_MT6580) += common/
 obj-$(CONFIG_ARCH_MT6755) += common/
-obj-$(CONFIG_KLAPSE_LIVEDISPLAY) += klapse/
+obj-$(CONFIG_KLAPSE) += klapse/klapse.o
 
